@@ -1,16 +1,16 @@
 import React from "react";
 
-import Bootstrap from './assets/skills/Bootstrap.svg';
-import CSS3 from './assets/skills/CSS3.svg';
-import Discordjs from './assets/skills/Discord.js.svg';
-import HTML5 from './assets/skills/HTML5.svg';
-import Java from './assets/skills/Java.svg';
-import JavaScript from './assets/skills/JavaScript.svg';
-import MySQL from './assets/skills/MySQL.svg';
-import Nodejs from './assets/skills/Node.js.svg';
-import PHP from './assets/skills/PHP.svg';
-import ReactLogo from './assets/skills/React.svg';
-import Tailwind from './assets/skills/Tailwind CSS.svg';
+import Bootstrap from '../../assets/skills/Bootstrap.svg';
+import CSS3 from '../../assets/skills/CSS3.svg';
+import Discordjs from '../../assets/skills/Discord.js.svg';
+import HTML5 from '../../assets/skills/HTML5.svg';
+import Java from '../../assets/skills/Java.svg';
+import JavaScript from '../../assets/skills/JavaScript.svg';
+import MySQL from '../../assets/skills/MySQL.svg';
+import Nodejs from '../../assets/skills/Node.js.svg';
+import PHP from '../../assets/skills/PHP.svg';
+import ReactLogo from '../../assets/skills/React.svg';
+import Tailwind from '../../assets/skills/Tailwind CSS.svg';
 
 const skills = [
     { name: "Java", logo: Java },

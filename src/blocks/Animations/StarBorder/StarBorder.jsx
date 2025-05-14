@@ -2,6 +2,8 @@
 	Installed from https://reactbits.dev/tailwind/
 */
 
+import {twMerge} from "tailwind-merge";
+
 const StarBorder = ({
   as: Component = "button",
   className = "",
@@ -11,8 +13,14 @@ const StarBorder = ({
   children,
   ...rest
 }) => {
+
+  const final_inClassName = `relative z-1 bg-gradient-to-b text-white text-center text-[16px] py-[16px] px-[26px] rounded-[20px] ${inClassName}`;
+
   return (
-    <Component className={`relative inline-block py-[1px] overflow-hidden rounded-[20px] ${className}`} {...rest}>
+      <Component
+          className={twMerge("relative inline-block py-[1px] overflow-hidden rounded-[20px]", className)}
+          {...rest}
+      >
       <div
         className="absolute w-[300%] h-[50%] opacity-70 bottom-[-11px] right-[-250%] rounded-full animate-star-movement-bottom z-0"
         style={{
@@ -27,7 +35,7 @@ const StarBorder = ({
           animationDuration: speed,
         }}
       ></div>
-      <div className={`relative z-1 bg-gradient-to-b from-black to-gray-900 border border-gray-800 text-white text-center text-[16px] py-[16px] px-[26px] rounded-[20px] ${inClassName}`}>
+        <div className={final_inClassName}>
         {children}
       </div>
     </Component>

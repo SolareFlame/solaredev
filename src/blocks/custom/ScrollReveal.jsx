@@ -15,6 +15,7 @@ const ScrollReveal = ({ children, delay = 0.1, duration = 0.6 }) => {
                     : { opacity: 0, y: 40, filter: "blur(4px)" }
             }
             transition={{ duration, delay }}
+            className="h-full flex flex-col"
         >
             {children}
         </motion.div>

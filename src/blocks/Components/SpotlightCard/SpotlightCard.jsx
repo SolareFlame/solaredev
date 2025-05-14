@@ -3,6 +3,7 @@
 */
 
 import { useRef, useState } from "react";
+import {twMerge} from "tailwind-merge";
 
 const SpotlightCard = ({ children, className = "", spotlightColor = "rgba(255, 255, 255, 0.25)" }) => {
   const divRef = useRef(null);
@@ -43,7 +44,7 @@ const SpotlightCard = ({ children, className = "", spotlightColor = "rgba(255, 2
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-3xl border border-neutral-800 bg-neutral-900 overflow-hidden p-8 ${className}`}
+      className={twMerge("relative rounded-3xl border overflow-hidden p-8 flex flex-col flex-grow", className)} //border-neutral-800 bg-neutral-900
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"

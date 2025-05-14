@@ -1,13 +1,13 @@
 import React from "react";
 
-import Aseprite from './assets/tools/Aseprite.svg';
-import DataGrip from './assets/tools/DataGrip.svg';
-import Figma from './assets/tools/Figma.svg';
-import Git from './assets/tools/Git.svg';
-import Intellij from './assets/tools/IntelliJ IDEA.svg';
-import PhpStorm from './assets/tools/PhpStorm.svg';
-import VisualStudioCode from './assets/tools/Visual Studio Code.svg';
-import Webstorm from './assets/tools/Webstorm.svg';
+import Aseprite from '../../assets/tools/Aseprite.svg';
+import DataGrip from '../../assets/tools/DataGrip.svg';
+import Figma from '../../assets/tools/Figma.svg';
+import Git from '../../assets/tools/Git.svg';
+import Intellij from '../../assets/tools/IntelliJ IDEA.svg';
+import PhpStorm from '../../assets/tools/PhpStorm.svg';
+import VisualStudioCode from '../../assets/tools/Visual Studio Code.svg';
+import Webstorm from '../../assets/tools/WebStorm.svg';
 
 const tools = [
     { name: "Aseprite", logo: Aseprite },
