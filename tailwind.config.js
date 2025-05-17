@@ -16,7 +16,9 @@ export default {
                 sans: ['Montserrat', 'sans-serif'],
             },
             colors: {
-                background: '#FFFFFF',
+                background: '#FBFAFD',
+                textday: '#1F1F1F',
+
                 background_dark: '#100E15',
 
                 camion: {

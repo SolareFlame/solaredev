@@ -7,5 +7,5 @@ html, body, #root {
 }
 
 body {
-  @apply bg-background font-sans text-white;
+  @apply bg-background dark:bg-background_dark font-sans text-white;
 }

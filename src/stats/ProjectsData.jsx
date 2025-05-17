@@ -9,7 +9,7 @@ const ProjectsData = () => {
             to={total}
             separator=","
             duration={1}
-            className="text-[48px] font-semibold"
+            className="text-[48px] font-semibold text-textday dark:text-[#BBB9BE]"
         />
     )
 };

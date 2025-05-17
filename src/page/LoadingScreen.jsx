@@ -1,5 +1,5 @@
 import React from 'react';
-import SolareLogo from "../assets/solare.svg";
+import SolareLogo from "../assets/solare.svg?react";
 
 const LoadingScreen = ({ isVisible }) => {
     return (
@@ -9,7 +9,7 @@ const LoadingScreen = ({ isVisible }) => {
             }`}
         >
             <div className="flex flex-col items-center">
-                <img src={SolareLogo} alt="Logo" className="w-32 h-32 mb-4" />
+                <SolareLogo className="w-32 h-32 mb-4 text-white" />
             </div>
         </div>
     );

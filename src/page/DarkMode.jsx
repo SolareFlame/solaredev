@@ -1,31 +1,47 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
 
+import MoonIcon from '../assets/icons/moon.svg?react';
+import SunIcon from '../assets/icons/sun.svg?react';
 
 const DarkMode = () => {
-    const [darkMode, setDarkMode] = useState(
-        () => localStorage.getItem("theme") === "dark"
-    );
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
-        const root = document.documentElement;
-        if (darkMode) {
-            root.classList.add("dark");
-            localStorage.setItem("theme", "dark");
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+            setDarkMode(true);
         } else {
-            root.classList.remove("dark");
-            localStorage.setItem("theme", "light");
+            document.documentElement.classList.remove('dark');
         }
-    }, [darkMode]);
+    }, []);
+
+    const toggleDarkMode = () => {
+        const isDark = !darkMode;
+        setDarkMode(isDark);
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    };
 
     return (
-        <div className="bg-background dark:bg-background_dark text-primary transition-colors duration-300">
-            <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2 border border-border rounded"
-            >
-                Toggle Mode
-            </button>
-        </div>
+        <button
+            onClick={toggleDarkMode}
+            className="p-2 rounded-full text-textday dark:text-white transition-colors duration-300 focus:outline-none"
+            aria-label="Toggle dark mode"
+        >
+            {darkMode ? (
+                <MoonIcon className="w-6 h-6" />
+            ) : (
+                <SunIcon className="w-6 h-6" />
+            )}
+        </button>
     );
 }
 

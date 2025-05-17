@@ -23,14 +23,14 @@ const tools = [
 const Tools = () => {
     return (
         <div className="relative w-full overflow-hidden py-4">
-            <div className="absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-[#100e15] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-[#100e15] to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 h-full w-16 bg-gradient-to-r dark:from-background_dark from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 h-full w-16 bg-gradient-to-l dark:from-background_dark from-background to-transparent z-10 pointer-events-none" />
 
             <div className="flex animate-scroll_reverse gap-12 w-max">
                 {[...tools, ...tools].map((lang, index) => (
                     <div key={index} className="flex items-center m-3">
                         <img src={lang.logo} alt={lang.name} className="w-[40px] me-2" />
-                        <p className="text-[20px] text-[#BBB9BE] whitespace-nowrap">{lang.name}</p>
+                        <p className="text-[20px] text-textday dark:text-[#BBB9BE] whitespace-nowrap">{lang.name}</p>
                     </div>
                 ))}
             </div>
