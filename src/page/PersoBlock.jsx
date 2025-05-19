@@ -3,15 +3,14 @@ import ScrollReveal from "../blocks/custom/ScrollReveal.jsx";
 
 const PersoBlock = ({ bgColor, logo: Logo, text }) => (
     <ScrollReveal>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center mb-5 gap-4">
-            <div className="w-1/12 me-5">
-                <div className={`w-[75px] h-[75px] ${bgColor} flex items-center justify-center rounded`}>
-                    <Logo className="w-[32px] h-[32px] hover:scale-125 hover:rotate-12 transition-transform duration-300"
-                    />
+        <div className="flex flex-col xl:flex-row items-center xl:items-start mb-5 gap-4">
+            <div className="w-full xl:w-1/12 mb-4 xl:mb-0">
+                <div className={`w-[75px] h-[75px] ${bgColor} flex items-center justify-center rounded mx-auto xl:mx-0`}>
+                    <Logo className="w-[32px] h-[32px] hover:scale-125 hover:rotate-12 transition-transform duration-300" />
                 </div>
             </div>
-            <div className="flex-1">
-                <p className="text-[20px] sm:text-[24px] font-medium text-textday dark:text-[#BBB9BE] text-left">
+            <div className="flex-1 text-center xl:text-left">
+                <p className="text-[20px] xl:text-[24px] font-medium text-textday dark:text-[#BBB9BE]">
                     {text}
                 </p>
             </div>

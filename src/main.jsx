@@ -18,7 +18,7 @@ function Root() {
             <LoadingScreen isVisible={loading} />
             <div className={`${loading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
                 <Navbar />
-                <div className="pt-[200px]">
+                <div className="xl:pt-[200px] pt-[100px] mx-5 xl:mx-0">
                     <App />
                 </div>
             </div>
