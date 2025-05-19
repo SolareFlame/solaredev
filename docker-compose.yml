@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  site:
+    image: nginx:alpine
+    container_name: solaredev
+    volumes:
+      - ./build:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=solare.dev
+      - LETSENCRYPT_HOST=solare.dev
+      - LETSENCRYPT_EMAIL=example@example.com
+    networks:
+      - nginx-proxy
+    restart: always
+
+networks:
+  nginx-proxy:
+    external: true
