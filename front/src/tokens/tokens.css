@@ -73,6 +73,9 @@
   --rule-thin: 2px;
   --rule-thick: var(--space-16);
 
+  --nav-height: var(--space-48); /* fixed top navbar */
+  /* Desktop: where the hero and the pinned profile card start, below the navbar. */
+  --content-top: calc(var(--nav-height) + var(--space-48));
   --gutter: var(--space-16);
   --aside-width: 18rem; /* 288px — profile column */
   --content-width: 36.5rem; /* 584px — main column */

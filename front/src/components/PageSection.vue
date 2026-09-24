@@ -18,6 +18,8 @@ defineProps<{ id: string; title: string; kanji: string; intro: string }>()
 <style scoped>
 .page-section {
   padding-block: var(--space-48) var(--space-64);
+  /* Anchor links land below the fixed navbar. */
+  scroll-margin-top: var(--nav-height);
 }
 
 .page-section__body {

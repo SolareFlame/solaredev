@@ -51,7 +51,7 @@ const ruleOverDark = useIsOverDark(() => rule.value?.$el as HTMLElement | undefi
 @media (min-width: 768px) {
   .profile {
     position: absolute;
-    top: var(--space-64);
+    top: var(--content-top);
     left: max(var(--gutter), (100% - var(--shell-width)) / 2);
     z-index: 10;
     width: var(--aside-width);
@@ -60,7 +60,7 @@ const ruleOverDark = useIsOverDark(() => rule.value?.$el as HTMLElement | undefi
 }
 
 /* Pinned while scrolling, as long as the viewport is tall enough to show it whole. */
-@media (min-width: 768px) and (min-height: 40rem) {
+@media (min-width: 768px) and (min-height: 42rem) {
   .profile {
     position: fixed;
   }

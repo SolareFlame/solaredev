@@ -7,6 +7,7 @@ import HeroSection from '@/sections/HeroSection.vue'
 import ProfileCard from '@/sections/ProfileCard.vue'
 import ProjectsSection from '@/sections/ProjectsSection.vue'
 import SiteFooter from '@/sections/SiteFooter.vue'
+import SiteNav from '@/sections/SiteNav.vue'
 import StackSection from '@/sections/StackSection.vue'
 import ToolsSection from '@/sections/ToolsSection.vue'
 
@@ -16,6 +17,7 @@ provide(darkSurfaceKey, useTemplateRef<HTMLElement>('darkSurface'))
 <template>
   <InkFilter />
   <div class="page">
+    <SiteNav />
     <main>
       <div class="page__paper">
         <div class="shell">
@@ -42,13 +44,13 @@ provide(darkSurfaceKey, useTemplateRef<HTMLElement>('darkSurface'))
 /* The paper part fills at least the first screen. */
 .page__paper {
   min-height: 100svh;
-  padding-block: var(--space-32) var(--space-48);
+  padding-block: calc(var(--nav-height) + var(--space-32)) var(--space-48);
   background: var(--color-white) url('@/assets/images/paper-texture.jpg') center top / cover;
 }
 
 @media (min-width: 768px) {
   .page__paper {
-    padding-top: var(--space-64);
+    padding-top: var(--content-top);
   }
 }
 
