@@ -11,8 +11,8 @@ export const sections = {
   },
   projects: {
     id: 'projects',
-    title: 'Projets',
-    kanji: '計画',
+    title: 'Projects',
+    kanji: '作品',
     intro:
       'Things I build on my own time: full-stack apps and Discord bots, designed from the database to the *interface*.',
   },
@@ -26,7 +26,7 @@ export const sections = {
   tools: {
     id: 'tools',
     title: 'Tools',
-    kanji: '工具箱',
+    kanji: '道具',
     intro: 'What I rely on to write, ship and document code, from the IDE to *production*.',
   },
 } satisfies Record<string, SectionContent>

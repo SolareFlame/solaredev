@@ -1,8 +1,16 @@
 <script setup lang="ts">
+import AccentText from './AccentText.vue'
 import CardLink from './CardLink.vue'
 import AppIcon from './icons/AppIcon.vue'
 
-defineProps<{ title: string; period: string; description: string; url?: string }>()
+defineProps<{
+  title: string
+  period: string
+  description: string
+  highlights?: string[]
+  stack?: string[]
+  url?: string
+}>()
 </script>
 
 <template>
@@ -15,6 +23,14 @@ defineProps<{ title: string; period: string; description: string; url?: string }
       <p class="experience__period">({{ period }})</p>
     </div>
     <p class="experience__description">{{ description }}</p>
+    <ul v-if="highlights?.length" class="experience__highlights">
+      <li v-for="highlight in highlights" :key="highlight" class="experience__highlight">
+        <AccentText :text="highlight" />
+      </li>
+    </ul>
+    <p v-if="stack?.length" class="experience__stack">
+      <span class="experience__stack-label">Stack</span> {{ stack.join(' · ') }}
+    </p>
     <AppIcon v-if="url" name="arrow-up-right" class="experience__arrow" />
   </article>
 </template>
@@ -69,6 +85,42 @@ defineProps<{ title: string; period: string; description: string; url?: string }
 .experience__description {
   margin-top: var(--space-8);
   font-size: var(--text-12);
+}
+
+.experience__highlights {
+  display: grid;
+  gap: calc(var(--space-8) / 2);
+  margin-top: var(--space-16);
+  font-size: var(--text-12);
+}
+
+/* Square bullet, like the dot of the .DEV logo. */
+.experience__highlight {
+  position: relative;
+  padding-inline-start: var(--space-16);
+}
+
+.experience__highlight::before {
+  content: '';
+  position: absolute;
+  top: calc(0.75em - 2px);
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-primary);
+}
+
+.experience__stack {
+  margin-top: var(--space-16);
+  color: var(--color-muted);
+  font-size: var(--text-12);
+  font-style: italic;
+}
+
+.experience__stack-label {
+  color: var(--color-white);
+  font-style: normal;
+  font-weight: var(--weight-semibold);
 }
 
 .experience__arrow {

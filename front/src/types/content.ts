@@ -40,6 +40,9 @@ export interface Experience {
   title: string
   period: string
   description: string
+  /** Bullet points; wrap words in `*asterisks*` to highlight them. */
+  highlights?: string[]
+  stack?: string[]
   url?: string
 }
 

@@ -13,6 +13,8 @@ import { sections } from '@/data/sections'
           :title="item.title"
           :period="item.period"
           :description="item.description"
+          :highlights="item.highlights"
+          :stack="item.stack"
           :url="item.url"
         />
       </li>

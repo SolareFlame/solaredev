@@ -18,6 +18,8 @@
    * Off-white at 20% over the dark background, pre-mixed: the ink filter needs opaque shapes.
    */
   --color-line: color-mix(in srgb, var(--color-white) 20%, var(--color-black));
+  /* Secondary text on the dark background (stack lists). */
+  --color-muted: color-mix(in srgb, var(--color-white) 65%, var(--color-black));
 
   /*
    * Project palettes — only used by each project's own preview/card.
