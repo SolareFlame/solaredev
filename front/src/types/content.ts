@@ -62,6 +62,8 @@ export interface Tool {
   name: string
   description: string
   icon: string
+  /** Official site; when set, the card becomes a link with a hover state. */
+  href?: string
 }
 
 export interface ToolGroup {

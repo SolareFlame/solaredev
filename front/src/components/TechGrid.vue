@@ -12,6 +12,7 @@ withDefaults(defineProps<{ items: Tool[]; headingLevel?: 3 | 4 }>(), { headingLe
         :name="item.name"
         :description="item.description"
         :icon="item.icon"
+        :href="item.href"
         :heading-level="headingLevel"
       />
     </li>

@@ -124,12 +124,17 @@ const ruleOverDark = useIsOverDark(() => rule.value?.$el as HTMLElement | undefi
   margin-top: var(--space-16);
 }
 
+/* Padding offset by a negative margin: the hover square overflows the icon without moving the row. */
 .profile__social {
   display: block;
+  margin: -0.25rem;
+  padding: 0.25rem;
 }
 
+/* Inverted on hover: off-white square, icon in the card's vermillon. */
 .profile__social:hover {
-  color: var(--color-black);
+  background-color: var(--color-white);
+  color: var(--color-primary);
 }
 
 .profile__social:focus-visible {
@@ -138,7 +143,9 @@ const ruleOverDark = useIsOverDark(() => rule.value?.$el as HTMLElement | undefi
 
 @media (prefers-reduced-motion: no-preference) {
   .profile__social {
-    transition: color 0.2s ease;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
   }
 
   /* Black on paper, off-white over the dark part (phones: never pinned, stays black). */

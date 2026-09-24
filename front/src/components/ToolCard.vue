@@ -1,12 +1,27 @@
 <script setup lang="ts">
+import { externalLinkAttrs } from '@/utils/links'
+
 withDefaults(
-  defineProps<{ name: string; description: string; icon: string; headingLevel?: 3 | 4 }>(),
+  defineProps<{
+    name: string
+    description: string
+    icon: string
+    href?: string
+    headingLevel?: 3 | 4
+  }>(),
   { headingLevel: 3 },
 )
 </script>
 
 <template>
-  <article class="tool">
+  <!-- Linked cards (tools) get the hover state; plain ones (stack) stay static. -->
+  <component
+    :is="href ? 'a' : 'article'"
+    class="tool"
+    :class="{ 'tool--link': href }"
+    :href="href"
+    v-bind="href ? externalLinkAttrs(href) : {}"
+  >
     <span class="tool__tile">
       <img class="tool__icon" :src="icon" alt="" width="48" height="48" loading="lazy" />
     </span>
@@ -14,7 +29,7 @@ withDefaults(
       <component :is="`h${headingLevel}`" class="tool__name">{{ name }}</component>
       <p class="tool__description">{{ description }}</p>
     </div>
-  </article>
+  </component>
 </template>
 
 <style scoped>
@@ -27,6 +42,7 @@ withDefaults(
   padding: calc(var(--space-16) - var(--border-width));
   border: var(--border-width) solid var(--color-line);
   color: var(--color-white);
+  text-decoration: none;
 }
 
 /* Hover: inked vermillon border + a marker bar next to the card. */
@@ -56,8 +72,10 @@ withDefaults(
   filter: var(--ink);
 }
 
-.tool:hover::before,
-.tool:hover::after {
+.tool--link:hover::before,
+.tool--link:hover::after,
+.tool--link:focus-visible::before,
+.tool--link:focus-visible::after {
   opacity: 1;
 }
 

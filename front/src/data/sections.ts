@@ -14,7 +14,7 @@ export const sections = {
     title: 'Projects',
     kanji: '作品',
     intro:
-      'Things I build on my own time: full-stack apps and Discord bots, designed from the database to the *interface*.',
+      'Things I build on my own time: full-stack apps and Discord bots, designed from the *database* to the *interface*.',
   },
   stack: {
     id: 'stack',
