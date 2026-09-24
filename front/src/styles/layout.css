@@ -1,0 +1,23 @@
+/*
+ * Page shell — a centred container shared by every band of the page.
+ * Mobile: a single column. From 768px: profile column + main column, the
+ * profile card itself being taken out of flow (see ProfileCard.vue).
+ */
+
+.shell {
+  width: min(100% - 2 * var(--gutter), var(--shell-width));
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    display: grid;
+    grid-template-columns: var(--aside-width) minmax(0, 1fr);
+    column-gap: var(--layout-gap);
+    padding-inline-end: var(--bleed);
+  }
+
+  .shell > * {
+    grid-column: 2;
+  }
+}
