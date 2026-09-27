@@ -7,8 +7,6 @@ export function useProjectTheme(theme: MaybeRefOrGetter<ProjectTheme>) {
     const name = toValue(theme)
     return {
       '--accent': `var(--project-${name})`,
-      '--accent-light': `var(--project-${name}-light)`,
-      '--accent-deep': `var(--project-${name}-deep)`,
       '--on-accent': `var(--project-${name}-on)`,
     }
   })

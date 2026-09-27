@@ -24,17 +24,22 @@ const themeVars = useProjectTheme(() => props.theme)
 <style scoped>
 .featured {
   position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   min-height: 12rem;
   padding: var(--space-16);
   color: var(--on-accent);
-  /* Mesh-like gradient sampled from the mockup, built from the project palette. */
-  background:
-    radial-gradient(40% 60% at 38% 100%, var(--accent-light), transparent),
-    radial-gradient(22% 50% at 30% 45%, color-mix(in srgb, var(--accent-light) 60%, var(--accent)), transparent),
-    radial-gradient(35% 60% at 82% 18%, var(--accent-deep), transparent),
-    var(--accent);
+}
+
+/* Inked background, kept on a separate layer so the content stays crisp. */
+.featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--accent);
+  filter: var(--ink);
 }
 
 .featured__logo {

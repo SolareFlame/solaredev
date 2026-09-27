@@ -23,21 +23,15 @@
 
   /*
    * Project palettes — only used by each project's own preview/card.
-   * `-on` is the foreground used on top of the project gradient (checked for WCAG AA).
+   * `-on` is the foreground used on top of the project color (checked for WCAG AA).
    */
   --project-myfigudb: #4537ff;
-  --project-myfigudb-light: #4e7eff;
-  --project-myfigudb-deep: #3c45ff;
   --project-myfigudb-on: var(--color-white);
 
   --project-crousto: #faaf18;
-  --project-crousto-light: #fed38b;
-  --project-crousto-deep: #fba018;
   --project-crousto-on: var(--color-white); /* 1.8:1 on this orange: below WCAG AA, kept as designed */
 
   --project-camion: var(--color-primary); /* TODO: Camion's own brand color */
-  --project-camion-light: color-mix(in srgb, var(--color-primary), var(--color-white) 25%);
-  --project-camion-deep: color-mix(in srgb, var(--color-primary), var(--color-black) 15%);
   --project-camion-on: var(--color-white);
 
   /* ------------------------------------------------------------ Typography */

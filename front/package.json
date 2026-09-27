@@ -13,6 +13,7 @@
     "@fontsource-variable/albert-sans": "^5.3.0",
     "@fontsource/noto-sans-jp": "^5.3.0",
     "@fontsource/poppins": "^5.3.0",
+    "@iconify-icons/ci": "^2.0.0",
     "vue": "^3.5.43"
   },
   "devDependencies": {

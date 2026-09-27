@@ -1,4 +1,4 @@
-/** Palettes defined in tokens.css as `--project-<theme>`, `-light`, `-deep` and `-on`. */
+/** Palettes defined in tokens.css as `--project-<theme>` and `-on`. */
 export type ProjectTheme = 'myfigudb' | 'crousto' | 'camion'
 
 export type SocialNetwork = 'github' | 'instagram' | 'discord'
