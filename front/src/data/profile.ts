@@ -15,7 +15,7 @@ export const profile: Profile = {
   bio: "A fourth-year engineering student with a passion for science, motorcycles, and Japanese culture. When I'm not studying, I'm usually building personal projects, tinkering with new tech, or looking for the next thing to learn.",
   stats: [
     { value: '3', label: 'Years of\nexperience' },
-    { value: '100', label: 'Commits made\nthis year' },
+    { value: '-', label: 'Commits\nmade', live: 'githubCommits' },
     { value: '5', label: 'Working\nprojects' },
   ],
 }

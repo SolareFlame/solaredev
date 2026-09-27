@@ -4,8 +4,17 @@ import DevWordmark from '@/components/DevWordmark.vue'
 import FeaturedProjectCard from '@/components/FeaturedProjectCard.vue'
 import InkRule from '@/components/InkRule.vue'
 import KanjiLabel from '@/components/kanji/KanjiLabel.vue'
+import { useGithubStats } from '@/composables/useGithubStats'
 import { profile } from '@/data/profile'
 import { featuredProjects } from '@/data/projects'
+import type { Stat } from '@/types/content'
+
+const githubStats = useGithubStats()
+
+const statValue = (stat: Stat) =>
+  stat.live === 'githubCommits' && githubStats.value
+    ? githubStats.value.totalCommits.toLocaleString('en-US')
+    : stat.value
 </script>
 
 <template>
@@ -27,7 +36,7 @@ import { featuredProjects } from '@/data/projects'
     <dl class="hero__stats">
       <div v-for="stat in profile.stats" :key="stat.label" class="hero__stat">
         <dt class="hero__stat-label">{{ stat.label }}</dt>
-        <dd class="hero__stat-value">{{ stat.value }}</dd>
+        <dd class="hero__stat-value">{{ statValue(stat) }}</dd>
       </div>
     </dl>
 

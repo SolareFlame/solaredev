@@ -10,9 +10,12 @@ export interface SocialLink {
 }
 
 export interface Stat {
+  /** Shown as is, or as a placeholder until the live value (if any) is loaded. */
   value: string
   /** Line breaks (`\n`) are kept when rendering. */
   label: string
+  /** Value fetched from the API instead (see useGithubStats). */
+  live?: 'githubCommits'
 }
 
 export interface Profile {
