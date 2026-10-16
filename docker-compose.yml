@@ -2,7 +2,7 @@
 # relays /api so the site is a single origin. Config comes from .env (see .env.example).
 #
 # Locally: http://localhost:8080, or `docker compose up -d postgres` alone for `npm run dev`.
-# In prod: Caddy reaches the front over the external `proxy` network (DEPLOY.md).
+# In prod: Caddy reaches the front over its external network, PROXY_NETWORK (DEPLOY.md).
 name: solaredev
 
 x-service: &service
@@ -91,9 +91,10 @@ services:
       start_period: 10s
 
 networks:
-  # Shared with Caddy, created outside this stack (`docker network create proxy`).
+  # Shared with Caddy, created outside this stack (locally: `docker network create proxy`).
   proxy:
     external: true
+    name: ${PROXY_NETWORK:-proxy}
   # Postgres and the back only: the front can't reach the database.
   db: {}
 
