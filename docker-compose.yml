@@ -1,15 +1,101 @@
-# Local Postgres for the back (DATABASE_URL in back/.env.example).
+# Whole stack, the same locally and in prod: Postgres, the API and the front, whose nginx also
+# relays /api so the site is a single origin. Config comes from .env (see .env.example).
+#
+# Locally: http://localhost:8080, or `docker compose up -d postgres` alone for `npm run dev`.
+# In prod: Caddy reaches the front over the external `proxy` network (DEPLOY.md).
+name: solaredev
+
+x-service: &service
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: '3'
+
 services:
   postgres:
+    <<: *service
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: solaredev
-      POSTGRES_PASSWORD: solaredev
-      POSTGRES_DB: solaredev
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env}
     ports:
-      - '5432:5432'
+      # Loopback only (for `npm run dev`): never reachable from outside the machine.
+      - 127.0.0.1:${POSTGRES_PORT:-5432}:5432
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - db
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  back:
+    <<: *service
+    build:
+      context: .
+      dockerfile: back/Dockerfile
+    image: solaredev-back
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    env_file: .env
+    environment:
+      # Fixed: the front's nginx and the healthcheck target this port.
+      PORT: 3000
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      default:
+        # Name the front's nginx uses: unique, unlike `back` (the front is also on `proxy`).
+        aliases: [solaredev-back]
+      db: {}
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '--spider', 'http://127.0.0.1:3000/api/health']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  front:
+    <<: *service
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+    image: solaredev-front
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    ports:
+      # Loopback only: the site on http://localhost:8080. Caddy doesn't use it, it goes through `proxy`.
+      - 127.0.0.1:${FRONT_PORT:-8080}:8080
+    networks:
+      default: {}
+      proxy:
+        # Unique name on the network shared with Caddy and other stacks.
+        aliases: [solaredev-front]
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '--spider', 'http://127.0.0.1:8080/']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  # Shared with Caddy, created outside this stack (`docker network create proxy`).
+  proxy:
+    external: true
+  # Postgres and the back only: the front can't reach the database.
+  db: {}
 
 volumes:
   postgres-data:
