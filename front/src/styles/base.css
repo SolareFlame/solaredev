@@ -10,7 +10,13 @@
   margin: 0;
 }
 
+/*
+ * Everything is sized in rem: past a 1920px-wide viewport (1rem = 16px), the root
+ * font-size grows with the width so the page keeps its proportions on 4K/8K screens.
+ * 100% keeps the browser's own font-size setting as the floor.
+ */
 html {
+  font-size: max(100%, 100vw / 120);
   background-color: var(--color-black);
   color: var(--color-black);
   font-family: var(--font-body);

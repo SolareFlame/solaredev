@@ -63,8 +63,8 @@
   --space-64: 4rem;
 
   /* ---------------------------------------------------------------- Layout */
-  --border-width: 2px;
-  --rule-thin: 2px;
+  --border-width: 0.125rem; /* 2px */
+  --rule-thin: 0.125rem; /* 2px */
   --rule-thick: var(--space-16);
 
   --nav-height: var(--space-48); /* fixed top navbar */
