@@ -21,5 +21,8 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
+# Music for the cassette easter egg: kept out of this repo (its own private repo, cloned here)
+front/src/features/cassette/assets/tracks/
+
 # Claude Code
 .claude/

@@ -37,6 +37,8 @@ onBeforeUnmount(() => observer?.disconnect())
         <span class="visually-hidden">(back to top)</span>
       </a>
       <ul class="nav__links">
+        <!-- Slot for optional features to teleport a link into (e.g. the cassette player). -->
+        <li id="nav-extras" class="nav__extras" />
         <li v-for="link in links" :key="link.id">
           <a
             class="nav__link"
@@ -96,6 +98,7 @@ onBeforeUnmount(() => observer?.disconnect())
 
 .nav__brand {
   display: flex;
+  flex: none;
   align-items: center;
   gap: var(--space-8);
   justify-self: start;
@@ -118,10 +121,20 @@ onBeforeUnmount(() => observer?.disconnect())
   }
 }
 
+/* Letter spacing set on the list so anything teleported into #nav-extras matches the links. */
 .nav__links {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-16);
+  letter-spacing: 0.08em;
+}
+
+/* Phones: tighter, so five links still fit beside the logo. */
+@media (max-width: 419px) {
+  .nav__links {
+    gap: var(--space-8);
+    letter-spacing: 0.04em;
+  }
 }
 
 @media (min-width: 768px) {
@@ -130,12 +143,17 @@ onBeforeUnmount(() => observer?.disconnect())
   }
 }
 
+/* No box of its own: whatever is teleported in sits in the list like a link, and when empty it
+   takes no room (no gap). */
+.nav__extras {
+  display: contents;
+}
+
 .nav__link {
   display: block;
   padding-block: var(--space-8);
   font-size: var(--text-12);
   font-weight: var(--weight-semibold);
-  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 

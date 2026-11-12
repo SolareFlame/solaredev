@@ -29,6 +29,12 @@ cp .env.example .env
 chmod 600 .env
 ```
 
+The cassette easter egg's music isn't in this repo (gitignored). Clone it where the front build picks it up, or skip it: the site builds without it, just with no cassettes.
+
+```bash
+git clone <music repo> front/src/features/cassette/assets/tracks
+```
+
 In `.env`: a strong `POSTGRES_PASSWORD` (`openssl rand -hex 32`), `GITHUB_TOKEN`, `PROXY_NETWORK=figutab_default`, and a free `POSTGRES_PORT` / `FRONT_PORT` if 5432 or 8080 are taken on the server. Then:
 
 ```bash
@@ -39,6 +45,7 @@ Update:
 
 ```bash
 git pull
+git -C front/src/features/cassette/assets/tracks pull   # if the music is cloned
 docker compose up -d --build --wait
 docker image prune -f
 ```

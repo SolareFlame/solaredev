@@ -2,6 +2,7 @@
 import { provide, useTemplateRef } from 'vue'
 import InkFilter from '@/components/InkFilter.vue'
 import { darkSurfaceKey } from '@/composables/useIsOverDark'
+import CassettePlayer from '@/features/cassette/CassettePlayer.vue'
 import ExperienceSection from '@/sections/ExperienceSection.vue'
 import HeroSection from '@/sections/HeroSection.vue'
 import ProfileCard from '@/sections/ProfileCard.vue'
@@ -34,6 +35,8 @@ provide(darkSurfaceKey, useTemplateRef<HTMLElement>('darkSurface'))
     </main>
     <SiteFooter />
   </div>
+  <!-- Optional easter egg ("More" in the nav): remove this line and its import to disable it. -->
+  <CassettePlayer />
 </template>
 
 <style scoped>

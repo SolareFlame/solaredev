@@ -11,3 +11,5 @@
 **/*.tsbuildinfo
 **/.env*
 **/Dockerfile
+# The music repo's history (its files themselves are bundled when present).
+**/.git
