@@ -8,8 +8,10 @@ import '@fontsource/poppins/600-italic.css'
 // tokens.css and loader.css are linked from index.html (needed before this script runs).
 import './styles/base.css'
 import './styles/layout.css'
+import './styles/intro.css'
 
 import App from './App.vue'
+import { startIntro } from './intro'
 
 createApp(App).mount('#app')
 
@@ -19,10 +21,16 @@ void import('@fontsource/noto-sans-jp/900.css')
 
 hideLoader()
 
-/** Fades the loading screen out once web fonts and images (paper texture, avatar) are in. */
+/**
+ * Lifts the loading screen once web fonts and images (paper texture, avatar) are in,
+ * and starts the opening sequence underneath it.
+ */
 function hideLoader() {
   const loader = document.getElementById('loader')
-  if (!loader) return
+  if (!loader) {
+    startIntro()
+    return
+  }
 
   const pageLoaded = new Promise<void>((resolve) => {
     if (document.readyState === 'complete') resolve()
@@ -31,6 +39,7 @@ function hideLoader() {
 
   void Promise.all([document.fonts.ready, pageLoaded]).then(() => {
     loader.classList.add('loader--hidden')
-    setTimeout(() => loader.remove(), 400) // fade duration (loader.css)
+    startIntro()
+    setTimeout(() => loader.remove(), 800) // exit duration (loader.css)
   })
 }

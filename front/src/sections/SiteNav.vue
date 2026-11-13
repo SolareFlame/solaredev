@@ -39,7 +39,7 @@ onBeforeUnmount(() => observer?.disconnect())
       <ul class="nav__links">
         <!-- Slot for optional features to teleport a link into (e.g. the cassette player). -->
         <li id="nav-extras" class="nav__extras" />
-        <li v-for="link in links" :key="link.id">
+        <li v-for="(link, i) in links" :key="link.id" class="nav__item" :style="{ '--i': i }">
           <a
             class="nav__link"
             :href="`#${link.id}`"

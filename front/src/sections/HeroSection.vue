@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import logo from '@/assets/brand/logo.svg'
+import CountUp from '@/components/CountUp.vue'
 import DevWordmark from '@/components/DevWordmark.vue'
 import FeaturedProjectCard from '@/components/FeaturedProjectCard.vue'
 import InkRule from '@/components/InkRule.vue'
 import KanjiLabel from '@/components/kanji/KanjiLabel.vue'
 import { useGithubStats } from '@/composables/useGithubStats'
+import { STATS_AT, STATS_STAGGER } from '@/intro'
 import { profile } from '@/data/profile'
 import { featuredProjects } from '@/data/projects'
 import type { Stat } from '@/types/content'
 
 const githubStats = useGithubStats()
+
+// One span per word, so the opening sequence can ink the bio in word by word.
+const bioWords = profile.bio.split(' ')
 
 const statValue = (stat: Stat) =>
   stat.live === 'githubCommits' && githubStats.value
@@ -21,7 +26,7 @@ const statValue = (stat: Stat) =>
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__masthead">
       <h1 id="hero-title" class="hero__title">
-        <span class="hero__solare ink">SOLARE</span>
+        <span class="hero__solare ink"><span class="hero__solare-text">SOLARE</span></span>
         <span class="hero__domain">
           <DevWordmark class="hero__dev" />
           <img class="hero__logo" :src="logo" alt="" width="100" height="100" />
@@ -31,17 +36,28 @@ const statValue = (stat: Stat) =>
       <InkRule orientation="vertical" />
     </div>
 
-    <p class="hero__bio">{{ profile.bio }}</p>
+    <p class="hero__bio">
+      <template v-for="(word, i) in bioWords" :key="i"
+        ><span class="hero__word" :style="{ '--i': i }">{{ word }}</span>{{ ' ' }}</template
+      >
+    </p>
 
     <dl class="hero__stats">
-      <div v-for="stat in profile.stats" :key="stat.label" class="hero__stat">
+      <div v-for="(stat, i) in profile.stats" :key="stat.label" class="hero__stat" :style="{ '--i': i }">
         <dt class="hero__stat-label">{{ stat.label }}</dt>
-        <dd class="hero__stat-value">{{ statValue(stat) }}</dd>
+        <dd class="hero__stat-value">
+          <CountUp :value="statValue(stat)" :delay="STATS_AT + i * STATS_STAGGER" />
+        </dd>
       </div>
     </dl>
 
     <ul class="hero__featured" aria-label="Featured projects">
-      <li v-for="project in featuredProjects" :key="project.id" class="hero__featured-item">
+      <li
+        v-for="(project, i) in featuredProjects"
+        :key="project.id"
+        class="hero__featured-item"
+        :style="{ '--i': i }"
+      >
         <InkRule />
         <FeaturedProjectCard
           :title="project.featured.title"
@@ -91,6 +107,11 @@ const statValue = (stat: Stat) =>
   color: var(--color-primary);
 }
 
+/* Inner layer so the intro can mask/blur the word without touching the ink filter. */
+.hero__solare-text {
+  display: block;
+}
+
 .hero__domain {
   display: flex;
   align-items: center;
@@ -119,6 +140,10 @@ const statValue = (stat: Stat) =>
 
 .hero__bio {
   margin-top: var(--space-32);
+}
+
+.hero__word {
+  display: inline-block;
 }
 
 /* --------------------------------------------------------------------- Stats */

@@ -45,7 +45,15 @@ const mainId = `${id}-dev-text`
       <use :href="`#${mainId}`" :transform="`translate(${SHADOW_OFFSET} 0)`" />
     </g>
 
-    <rect x="0" :y="BASELINE - 16" width="16" height="16" fill="currentColor" aria-hidden="true" />
+    <rect
+      class="dev-wordmark__square"
+      x="0"
+      :y="BASELINE - 16"
+      width="16"
+      height="16"
+      fill="currentColor"
+      aria-hidden="true"
+    />
     <text
       :id="mainId"
       class="dev-wordmark__text dev-wordmark__outline dev-wordmark__main"

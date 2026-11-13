@@ -15,6 +15,29 @@
   pointer-events: none;
 }
 
+/* Exit: the black screen retracts upwards into the (black) nav bar, the spinning logo shrinks away. */
+@media (prefers-reduced-motion: no-preference) {
+  .loader {
+    transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+
+  .loader--hidden {
+    opacity: 1;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .loader__logo {
+    transition:
+      scale 0.4s ease-in,
+      opacity 0.4s ease-in;
+  }
+
+  .loader--hidden .loader__logo {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+
 .loader__logo {
   width: var(--space-64);
   height: var(--space-64);

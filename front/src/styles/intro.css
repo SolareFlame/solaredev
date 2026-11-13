@@ -1,0 +1,254 @@
+/*
+ * Opening sequence — the first screen "inks" itself in once the loader lifts.
+ * Started by intro.ts (`html[data-intro]`), right as the loader starts retracting into the nav.
+ *
+ * Everything uses `animation-fill-mode: backwards`: hidden during its delay, then back to
+ * the element's own styles once done (no leftover masks, filters or layers).
+ * Reduced motion: none of this applies, the page is simply there.
+ *
+ * Timeline (ms after the loader starts lifting):
+ *    0  nav links drop in
+ *  160  profile card stamped, then its content
+ *  270  SOLARE brushed in            400  vertical bar drawn down
+ *  950  .DEV: square dot, outline drawn, hard shadow slides out
+ * 1280  logo spins in (same spin as the loader)
+ * 1820  ソラル written top to bottom
+ * 1550  bio, word by word
+ * 1820  stats (counters start at STATS_AT, intro.ts)
+ * 2300  featured projects: bar drawn, then card stamped
+ */
+
+:root {
+  --intro-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --intro-snap: cubic-bezier(0.3, 1.5, 0.5, 1); /* slight overshoot */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ------------------------------------------------------------------- Nav */
+
+  :root[data-intro] .nav__brand {
+    animation: intro-drop 680ms var(--intro-ease) 200ms backwards;
+  }
+
+  :root[data-intro] .nav__item {
+    animation: intro-drop 610ms var(--intro-ease) calc(340ms + var(--i) * 80ms) backwards;
+  }
+
+  /* --------------------------------------------------------- Profile card */
+
+  :root[data-intro] .profile__card {
+    animation: intro-stamp 740ms var(--intro-ease) 160ms backwards;
+  }
+
+  :root[data-intro] .profile__avatar {
+    animation: intro-iris 950ms var(--intro-ease) 430ms backwards;
+  }
+
+  :root[data-intro] .profile__handle {
+    animation: intro-brush 950ms var(--intro-ease) 700ms backwards;
+  }
+
+  :root[data-intro] .profile__tagline {
+    animation: intro-rise 680ms var(--intro-ease) 860ms backwards;
+  }
+
+  :root[data-intro] .profile__tagline + .profile__tagline {
+    animation-delay: 970ms;
+  }
+
+  :root[data-intro] .profile__cta {
+    animation: intro-rise 680ms var(--intro-ease) 1110ms backwards;
+  }
+
+  :root[data-intro] .profile__socials li {
+    animation: intro-pop 610ms var(--intro-snap) 1220ms backwards;
+  }
+
+  :root[data-intro] .profile__socials li:nth-child(2) {
+    animation-delay: 1310ms;
+  }
+
+  :root[data-intro] .profile__socials li:nth-child(3) {
+    animation-delay: 1400ms;
+  }
+
+  :root[data-intro] .profile__rule {
+    animation: intro-wipe-x 810ms var(--intro-ease) 950ms backwards;
+  }
+
+  /* -------------------------------------------------------------- Masthead */
+
+  :root[data-intro] .hero__solare-text {
+    animation: intro-brush 1150ms var(--intro-ease) 270ms backwards;
+  }
+
+  :root[data-intro] .hero__masthead > .ink-rule {
+    animation: intro-wipe-y 1220ms var(--intro-ease) 400ms backwards;
+  }
+
+  :root[data-intro] .hero__dev .dev-wordmark__square {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: intro-pop 540ms var(--intro-snap) 950ms backwards;
+  }
+
+  /* Outline traced like a pen stroke; the shadow (a <use> clone) is traced with it. */
+  :root[data-intro] .hero__dev .dev-wordmark__main {
+    animation: intro-draw 1480ms cubic-bezier(0.45, 0, 0.25, 1) 1010ms backwards;
+  }
+
+  :root[data-intro] .hero__dev .dev-wordmark__shadow use {
+    animation: intro-shadow 610ms var(--intro-ease) 2090ms backwards;
+  }
+
+  :root[data-intro] .hero__logo {
+    animation: intro-spin 1220ms var(--intro-ease) 1280ms backwards;
+  }
+
+  :root[data-intro] .hero__kana {
+    animation: intro-wipe-y 1080ms cubic-bezier(0.5, 0, 0.3, 1) 1820ms backwards;
+  }
+
+  /* ------------------------------------------------------------ Bio, stats */
+
+  :root[data-intro] .hero__word {
+    animation: intro-ink 950ms var(--intro-ease) calc(1550ms + var(--i) * 20ms) backwards;
+  }
+
+  :root[data-intro] .hero__stat {
+    animation: intro-rise 810ms var(--intro-ease) calc(1820ms + var(--i) * 160ms) backwards;
+  }
+
+  /* ------------------------------------------------------ Featured projects */
+
+  :root[data-intro] .hero__featured-item > .ink-rule {
+    animation: intro-wipe-x 740ms var(--intro-ease) calc(2300ms + var(--i) * 200ms) backwards;
+  }
+
+  :root[data-intro] .hero__featured-item > .featured {
+    animation: intro-stamp 740ms var(--intro-ease) calc(2560ms + var(--i) * 200ms) backwards;
+  }
+}
+
+/* ---------------------------------------------------------------- Keyframes */
+
+@keyframes intro-drop {
+  from {
+    opacity: 0;
+    translate: 0 -0.75rem;
+  }
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+}
+
+/* Pressed onto the paper: lands a bit too big and tilted, settles flat. */
+@keyframes intro-stamp {
+  0% {
+    opacity: 0;
+    scale: 1.12;
+    rotate: -2deg;
+  }
+
+  60% {
+    opacity: 1;
+    scale: 0.985;
+    rotate: 0.3deg;
+  }
+}
+
+/* A brush sweeping left to right (slanted, soft edge), ink still wet (blurred) behind it. */
+@keyframes intro-brush {
+  from {
+    -webkit-mask: linear-gradient(100deg, #000 40%, transparent 60%) 100% 0 / 260% 100% no-repeat;
+    mask: linear-gradient(100deg, #000 40%, transparent 60%) 100% 0 / 260% 100% no-repeat;
+    filter: blur(6px);
+  }
+
+  to {
+    -webkit-mask: linear-gradient(100deg, #000 40%, transparent 60%) 0 0 / 260% 100% no-repeat;
+    mask: linear-gradient(100deg, #000 40%, transparent 60%) 0 0 / 260% 100% no-repeat;
+    filter: blur(0);
+  }
+}
+
+/* Ink soaking into the paper: blurred and faint, then sharp. */
+@keyframes intro-ink {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    translate: 0 0.25em;
+  }
+}
+
+/* Bars drawn with one stroke. Generous outsets keep the ink filter's bumps uncut. */
+@keyframes intro-wipe-x {
+  from {
+    clip-path: inset(-50% 100% -50% -50%);
+  }
+
+  to {
+    clip-path: inset(-50%);
+  }
+}
+
+@keyframes intro-wipe-y {
+  from {
+    clip-path: inset(-50% -50% 100% -50%);
+  }
+
+  to {
+    clip-path: inset(-50%);
+  }
+}
+
+@keyframes intro-iris {
+  from {
+    clip-path: circle(0% at 50% 50%);
+    scale: 0.9;
+    rotate: -8deg;
+  }
+
+  to {
+    clip-path: circle(75% at 50% 50%);
+  }
+}
+
+@keyframes intro-pop {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+}
+
+@keyframes intro-spin {
+  from {
+    opacity: 0;
+    scale: 0.3;
+    rotate: -1turn;
+  }
+}
+
+@keyframes intro-draw {
+  from {
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+  }
+
+  to {
+    stroke-dasharray: 800;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The hard shadow starts hidden right behind the letters and slides out to its offset. */
+@keyframes intro-shadow {
+  from {
+    opacity: 0;
+    translate: -16px 0;
+  }
+}
