@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "wger": {
+      "command": "npx",
+      "args": ["-y", "@juxsta/wger-mcp@1.1.1"],
+      "env": {
+        "WGER_API_KEY": "${WGER_API_KEY}",
+        "WGER_API_URL": "${WGER_API_URL:-https://gym.solare.dev/api/v2}"
+      }
+    }
+  }
+}
